@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
+
+*
+{
+    font-family: 'Nunito', sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+body
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(233, 252, 233);
+}
+
+header
+{
+    background-color: rgb(106, 189, 106);
+    height: 4vw;
+    width: 100%;
+    font-size: 3vw;
+    text-align: center;
+    box-shadow: 0 0 0.5vw gray;
+}
+
+print
+{
+    position: absolute;
+    top: 5vw;
+}
+
+section
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.div-table:first-child
+{
+    margin-right: 1vw;
+}
+
+.div-table:last-child
+{
+    margin-left: 1vw;
+}
+
+fieldset
+{
+    background-color: white ;
+    border: solid rgb(90, 151, 90) 2px;
+    border-radius: 1vw;
+    width: 45vw;
+    height: 70vh;
+    margin-top: 1vw;
+    text-align: center;
+    box-shadow: 0 0 0.5vw gray;
+    display: flex;
+    flex-direction: column;
+
+    padding: 1vw;
+    overflow-y: scroll;
+}
+
+legend
+{
+    padding: 0.5vw 2vw 0.5vw 2vw;    
+    border: solid rgb(90, 151, 90) 2px;
+    border-radius: 1vw;
+    background-color: white ;
+    font-size: 1.5vw;
+}
+
+
+/* * INFORMACOES EM CIMA DA LISTA */
+#info, #fav-info
+{
+    align-self: flex-start;
+    text-align: left;
+    font-size: 1.5vw;
+    height: 4vw;
+    margin-top: 1vw;
+}
+/* * */
+/* ? LISTA COM OS PAISES */
+#lista
+{
+    text-align: left;
+}
+
+.paistr
+{
+    text-align: center;
+    justify-content: center;
+    background-color: #eeffec;
+    height: 3vw;
+}
+
+.paistr td
+{
+    width: 10%;
+    padding: 0.5vw;
+}
+
+table
+{
+    border-collapse: collapse;
+}
+
+table tr:nth-child(odd)
+{
+    background-color: #d5fbd1;
+    height: 3vw;
+}
+
+img{
+    width: 40%;
+    cursor: pointer;
+}
+
+#thead
+{
+    background-color: #d8dae0;
+    height: 5vw;
+    font-size: 2vw;
+}
+/* ? */
+
+/* ! MODAL DA BANDEIRA */
+#flag
+{
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.551);
+    position: absolute;
+    z-index: 2;
+}
+
+#flag h1
+{
+    margin-bottom: 1vw; 
+    padding: 1vw; 
+    background-color:white;
+    border-radius: 1.5vw;
+}
+
+#flag img
+{
+    width: 50%;
+}
+
+#flag button
+{
+    position: absolute;
+    top: 2vw;
+    right: 2vw;
+    font-size: 3vw;
+    background-color: transparent;
+    border: none;
+    color: white;
+    border: hidden 0.5px black;
+    
+    width: 5vw;
+
+    border-radius: 60%;
+    transition: 0.3s;
+}
+
+#flag button:hover{
+    
+    background-color: #F6F7FA;
+    border: solid 1px black;
+    color: black;
+
+}
+
+
+/*? BOTAO DE FAVORITOS ANTES DE SER CLICADO */
+.fav-btn
+{
+    width: 3vw;
+    height: 3vw;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    transition: 0.3s;
+}
+.fav-btn:hover
+{
+    background-color: rgb(179, 179, 179);
+    transition: 0.3s;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.fav-btn::after
+{
+    content: '❤️';
+    opacity: 0.3;
+    font-size: 1.5vw;
+    transition: 0.3s;
+}
+
+/* ? */
+
+/*!BOTAO DE FAVORITOS APOS SER CLICADO */
+.liked
+{
+    width: 3vw;
+    height: 3vw;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    transition: 0.3s;
+}
+
+.liked::after
+{
+    content: '❤️';
+    font-size: 1.5vw;
+    transition: 0.3s;
+}
+
+.liked:hover
+{
+    background-color: rgb(179, 179, 179);
+    transition: 0.3s;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.liked:hover::after
+{
+    opacity: 0.4;
+    transition: 0.3s;
+
+}
+
+/* ! */
+
+
+
+/**********************************************************************************************************************************************************************/
+                                        /* BARRA DE SCROLL */
+/**********************************************************************************************************************************************************************/
+
+::-webkit-scrollbar
+{
+    background-color: #F6F7FA;
+    width: 0.9vw;
+    border-radius: 0.7vw;
+}
+
+::-webkit-scrollbar-thumb
+{
+    background-color: #d8dae0;
+    border-radius: 0.7vw;
+}
+
+::-webkit-scrollbar-thumb:hover
+{
+    background-color: #80b978;  
+    transition: 0.3s;
+}
+
+/**********************************************************************************************************************************************************************/
+                                        /* ANIMACAO */
+/**********************************************************************************************************************************************************************/
+
+@keyframes openModal
+{
+    from
+    {
+        width: 30%;
+    }
+
+    to
+    {
+        width: 50%;
+    }
+}
