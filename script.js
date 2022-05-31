@@ -123,24 +123,33 @@ $(".btn-filter").on("click", (e)=>{
         $("#lista").html('');
         data.sort().forEach(pais =>
             {
-                if(id == 'Other')
-                {
-                    if(pais.region != 'Asia' && pais.region != 'Americas' && pais.region != 'Europe' && pais.region != 'Oceania' && pais.region != 'Africa')
-                    {
-                        i++;
-                        qnt_total+=pais.population;
-                        imprimeRow(i, pais, qnt_total);
-                    }
+                if(id == 'All'){
+                    i++;
+                    qnt_total+=pais.population;
+                    imprimeRow(i, pais, qnt_total);
                 }
                 else
                 {
-                    if(pais.region == id)
+                    if(id == 'Other')
                     {
-                        i++;
-                        qnt_total+=pais.population;
-                        imprimeRow(i, pais, qnt_total);
+                        if(pais.region != 'Asia' && pais.region != 'Americas' && pais.region != 'Europe' && pais.region != 'Oceania' && pais.region != 'Africa')
+                        {
+                            i++;
+                            qnt_total+=pais.population;
+                            imprimeRow(i, pais, qnt_total);
+                        }
+                    }
+                    else
+                    {
+                        if(pais.region == id)
+                        {
+                            i++;
+                            qnt_total+=pais.population;
+                            imprimeRow(i, pais, qnt_total);
+                        }
                     }
                 }
+                
             })
 })
 
@@ -281,4 +290,4 @@ function CollorBgRegion(regiao)
     {
         return 'rgba(193, 136, 234, 0.629)'
     }
-}
+}''
