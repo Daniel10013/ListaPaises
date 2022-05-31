@@ -55,7 +55,7 @@ fieldset
     border: solid rgb(90, 151, 90) 2px;
     border-radius: 1vw;
     width: 45vw;
-    height: 70vh;
+    height: 83vh;
     margin-top: 1vw;
     text-align: center;
     box-shadow: 0 0 0.5vw gray;
@@ -75,8 +75,82 @@ legend
     font-size: 1.5vw;
 }
 
+/*? INPUT DE PESQUISA */
+#search
+{
+    width: 98%;
+    margin-bottom: 2vh;
+    padding: 0.4vw 0vw 0.4vw 0.3vw;
+    border: solid 2px rgb(59, 110, 79);
+    transition: 0.3s;
+    border-radius: 0.7vw;
+    outline: none;
+}
 
-/* * INFORMACOES EM CIMA DA LISTA */
+#search:focus
+{
+    transition: 0.3s;
+    border: solid 2px rgb(101, 193, 139);
+    box-shadow: 0px 0px 0px 2px rgb(90, 174, 125) ;
+}
+
+/*? BOTAO DE FILTROS */
+.btn-filter
+{
+    width: 6vw;
+    height: 4vh;
+    font-size: 0.9vw;
+    border: 1px solid rgba(0, 0, 0, 0.314);
+    border-radius: 1vw;
+    transition: 0.3s;
+}
+
+.btn-filter:hover
+{
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.filter-click
+{
+    filter: brightness(0.4);
+}
+
+/*! BOTÕES DOS PAISES */
+/*! ASIA */
+.asia
+{
+    background-color: rgba(251, 131, 131, 0.529);
+}
+/*! AMERICA */
+.america
+{
+    background-color: rgba(131, 207, 251, 0.529);
+}
+/*! AFRICA */
+.africa
+{
+    background-color: rgba(208, 244, 132, 0.529);
+}
+/*! EUROPA */
+.europe
+{
+    background-color: rgba(196, 200, 91, 0.529);
+}
+/*! OCEANIA */
+.oceania
+{
+    background-color: rgba(193, 136, 234, 0.529);
+}
+/*! OUTROS */
+.other
+{
+    background-color: rgba(151, 170, 181, 0.529);
+}
+/*? **************** */
+
+
+/* * INFORMACOES EM BAIXO DA LISTA */
 #info, #fav-info
 {
     align-self: flex-start;
@@ -84,8 +158,10 @@ legend
     font-size: 1.5vw;
     height: 4vw;
     margin-top: 1vw;
+    margin-bottom: 1vw;
 }
 /* * */
+
 /* ? LISTA COM OS PAISES */
 #lista
 {
@@ -96,7 +172,6 @@ legend
 {
     text-align: center;
     justify-content: center;
-    background-color: #eeffec;
     height: 3vw;
 }
 
@@ -109,13 +184,10 @@ legend
 table
 {
     border-collapse: collapse;
+    margin-top: 2vh;
 }
 
-table tr:nth-child(odd)
-{
-    background-color: #d5fbd1;
-    height: 3vw;
-}
+
 
 img{
     width: 40%;

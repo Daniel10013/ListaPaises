@@ -4,11 +4,17 @@ let data;
 //variavel para receber os favorito
 let favs = [];
 
+//variavel com os filtros
+let filter = 'none';
+
+//variavel com os botões clicados
+let clicked = 'none';
+
 //pega os dados da API  
 fetch("https://restcountries.com/v2/all").then(result=>{
     result.json().then(res=>
         {
-            // console.log(res);
+            console.log(res);
             data = res;
             montaTabela(res);
         });
@@ -105,30 +111,66 @@ $("#fav-lista").on("click", (e)=>{
     }
 })
 
+//montar tabela com filtro do botão
+$(".btn-filter").on("click", (e)=>{
+    var id = e.target.id;
+    console.log(id)
+    $('.filter-click').removeClass('filter-click')
+    $('#'+id).addClass('filter-click');
+
+    let i = 0;
+    var qnt_total = 0;
+        $("#lista").html('');
+        data.sort().forEach(pais =>
+            {
+                if(id == 'Other')
+                {
+                    if(pais.region != 'Asia' && pais.region != 'Americas' && pais.region != 'Europe' && pais.region != 'Oceania' && pais.region != 'Africa')
+                    {
+                        i++;
+                        qnt_total+=pais.population;
+                        imprimeRow(i, pais, qnt_total);
+                    }
+                }
+                else
+                {
+                    if(pais.region == id)
+                    {
+                        i++;
+                        qnt_total+=pais.population;
+                        imprimeRow(i, pais, qnt_total);
+                    }
+                }
+            })
+})
+
+//faz a pesquisa simples
+var input = document.querySelector('#search');
+input.addEventListener('change', ()=>{
+    if($("#search").value === "")
+    {
+        montaTabela(data);
+    }
+    else
+    {
+        $("#lista").html('');
+        for(var x = 0; x < data.length; x++)
+        {
+            if(data[x].translations.br == $("#search").value)
+            {
+                i++;
+                qnt_total += data[x].population;
+                imprimeRow(i, data[x], qnt_total);
+            }
+        }
+    }
+
+})
+
 //funcao que monta a tabela com os dados da api
 function montaTabela(dataProvider)
 {    
-    var i = 1;
-    var qnt_total = 0;
-
-    dataProvider.sort().forEach(pais => {
-        $("#lista").append(
-            "<tr  class='paistr' id='pais"+ i +"'> " +
-            "<td>" + i + "</td>"+ 
-            "<td>" + pais.translations.br + "</td>"+ 
-            "<td><img id='flag"+ i +"' src='"+pais.flag+"'></td>"+ 
-            "<td>" + pais.population + "</td>"+ 
-            "<td>" + pais.numericCode + "</td>"+ 
-            "<td><button class='fav-btn' id='botao"+ i +"'></button></td>"+""+ 
-            "</tr>"); 
-        i++;
-        qnt_total += pais.population;
-    });
-    
-    //* adicionas as informações de quantidade de paises e numero de pessoas
-    $("#info").append(           
-    '<p>Quantidade de paises: <span style="color: red">' + dataProvider.length + '</span></p>' +
-    '<p>Quantidade populacional total: <span style="color: red">' + qnt_total.toLocaleString(undefined) +'</span></p>');
+    imprimeTabela(dataProvider)
 }
 
 //função que imprime a tabela de paises favoritados
@@ -149,11 +191,11 @@ function montaFavs()
 
         favs.sort().forEach(id =>{
             $("#fav-lista").append(
-                "<tr  class='paistr' id='fav-pais"+ id +"'> " +
+                "<tr  class='paistr' id='fav-pais"+ id +"' style='background-color:"+ CollorBgRegion(data[id].region) +"'> " +
                 "<td>" + i + "</td>"+ 
                 "<td>" + data[id].translations.br + "</td>"+ 
                 "<td><img id='fav-flag"+ i +"' src='"+data[id].flag+"'></td>"+ 
-                "<td>" + data[id].population + "</td>"+ 
+                "<td>" + data[id].population.toLocaleString(undefined) + "</td>"+ 
                 "<td>" + data[id].numericCode + "</td>"+ 
                 "<td><button class='liked' id='fav-botao"+ id +"'></button></td>"+""+ 
                 "</tr>"); 
@@ -165,5 +207,78 @@ function montaFavs()
         $("#fav-info").html(           
             '<p>Quantidade de paises: <span style="color: red">' + favs.length + '</span></p>' +
             '<p>Quantidade populacional total: <span style="color: red">' + fav_qnt_pessoas.toLocaleString(undefined) +'</span></p>');
+    }
+}
+
+//imprimir tabela inicial
+function imprimeTabela(dataProvider)
+{
+    var i = 1;
+    var qnt_total = 0;
+    dataProvider.sort().forEach(pais => {
+        $("#lista").append(
+            "<tr  class='paistr' id='pais"+ i +"' style='background-color:"+ CollorBgRegion(pais.region) +"'> " +
+            "<td>" + i + "</td>"+ 
+            "<td>" + pais.translations.br + "</td>"+ 
+            "<td><img id='flag"+ i +"' src='"+pais.flag+"'></td>"+ 
+            "<td>" + pais.population.toLocaleString(undefined) + "</td>"+ 
+            "<td>" + pais.numericCode + "</td>"+ 
+            "<td><button class='fav-btn' id='botao"+ i +"'></button></td>"+""+ 
+            "</tr>"); 
+        i++;
+        qnt_total += pais.population;
+    });
+
+    //* adicionas as informações de quantidade de paises e numero de pessoas
+    $("#info").append(           
+        '<p>Quantidade de paises: <span style="color: red">' + dataProvider.length + '</span></p>' +
+        '<p>Quantidade populacional total: <span style="color: red">' + qnt_total.toLocaleString(undefined) +'</span></p>');
+}
+
+function imprimeRow(i, pais, qnt_total)
+{
+    $("#lista").append(
+        "<tr  class='paistr' id='pais"+ i +"' style='background-color:"+ CollorBgRegion(pais.region) +"'> " +
+        "<td>" + i + "</td>"+ 
+        "<td>" + pais.translations.br + "</td>"+ 
+        "<td><img id='flag"+ i +"' src='"+pais.flag+"'></td>"+ 
+        "<td>" + pais.population.toLocaleString(undefined) + "</td>"+ 
+        "<td>" + pais.numericCode + "</td>"+ 
+        "<td><button class='fav-btn' id='botao"+ i +"'></button></td>"+""+ 
+        "</tr>"); 
+
+        //* adicionas as informações de quantidade de paises e numero de pessoas
+        $("#info").html(           
+            '<p>Quantidade de paises: <span style="color: red">' + i + '</span></p>' +
+            '<p>Quantidade populacional total: <span style="color: red">' + qnt_total.toLocaleString(undefined) +'</span></p>');
+}
+
+//cor de fundo das linhas da tabela
+function CollorBgRegion(regiao)
+{
+    if(regiao != 'Asia' && regiao != 'Americas' && regiao != 'Europe' && regiao != 'Oceania' && regiao != 'Africa')
+    {
+        return 'rgba(151, 170, 181, 0.629)'
+    }
+
+    if(regiao == 'Asia')
+    {
+        return 'rgba(251, 131, 131, 0.929)'
+    }
+    if(regiao == 'Americas')
+    {
+        return 'rgba(131, 207, 251, 0.629)'
+    }
+    if(regiao == 'Africa')
+    {
+        return 'rgba(208, 244, 132, 0.629);'
+    }
+    if(regiao == 'Europe')
+    {
+        return 'rgba(196, 200, 91, 0.629)'
+    }
+    if(regiao == 'Oceania')
+    {
+        return 'rgba(193, 136, 234, 0.629)'
     }
 }
